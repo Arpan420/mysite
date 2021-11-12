@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Online Desktop</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../static/style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="scripts.js"></script>
+    <script src="../static/scripts.js"></script>
 </head>
 <body onload="startTime()">
     <div class="container">
@@ -18,6 +18,10 @@
         <div class="main">
            <div class="widget">
                <h3> Notes</h3>
+               <div class="notepad">
+                   <textarea id = "note-area" name = "message" rows = "20" cols ="40"></textarea>
+                  <p><button id="saveNoteBtn">Save</button></p>
+               </div>
            </div>
              
            <div class="widget">
@@ -33,6 +37,15 @@
 </body>
 
 <script> 
+    try {
+        var loadNotes = localStorage.getItem("notes");
+    }
+    catch(err) {
+        var loadNotes = "Enter your notes here and click 'Save'";
+    }
+
+    $("#note-area").val(loadNotes);
+
     var sp = "/";
     var today = new Date();
     var dd = today.getDate();
@@ -44,6 +57,10 @@
 
     $('#date').html(mm + sp + dd + sp + yyyy);
 
+    $('#saveNoteBtn').click(function(){
+        var currentNotes = $('#note-area').val();
+        localStorage.setItem("notes", currentNotes);
+    });
 </script>
 </html>
 
